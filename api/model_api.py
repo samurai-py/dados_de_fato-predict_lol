@@ -19,20 +19,22 @@ def process_payload():
 
         # Cria o DataFrame inicial
         df = df_model.copy()
-
+    
         # Processa os picks
         for pick in data['picks']:
-            df.loc[df['0'] == f"pick_{pick}", '5617270'] = True
-
+            df.loc[df['cols'] == f"pick_{pick}", '5465313'] = True
+        
         # Processa a position
-        df.loc[df['0'] == f"position_{data['positions']}", '5617270'] = True
-
+        df.loc[df['cols'] == f"position_{data['positions']}", '5465313'] = True
+        
         # Processa os bans
         for ban in data['bans']:
-            df.loc[df['0'] == f"ban_{ban}.0", '5617270'] = True
-
+            df.loc[df['cols'] == f"ban_{ban}.0", '5465313'] = True
+            
+        print(df.columns)
+        
         # Converta o DataFrame para o formato correto para a previsão
-        df_for_prediction = df['5617270'].astype(float).values.reshape(1, -1)  # Reshape para uma amostra com muitos recursos
+        df_for_prediction = df['5465313'].astype(float).values.reshape(1, -1)
 
         # Faz a previsão
         prediction = model.predict(df_for_prediction)
